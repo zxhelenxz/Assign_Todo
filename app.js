@@ -1,5 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const date = require(__dirname + "/views/date.js");
+
 const app = express();
 
 let items = ["Buy Food", "Cook Food"];
@@ -9,13 +11,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("Public"));
 
 app.get("/", function (req, res) {
-    var today = new Date();
-    var options = {
-        weekday: "long",
-        day: "numeric",
-        month: "long"
-    };
-    var day = today.toLocaleDateString("en-US", options);
+    let day = date.getDate();
     res.render("list", { listTitle: day, newListItems: items });
 });
 app.post("/", function (req, res) {
